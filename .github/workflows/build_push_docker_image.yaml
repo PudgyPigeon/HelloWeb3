@@ -9,21 +9,24 @@ env:
   PROJECT_ID: ${{ secrets.GOOGLE_PROJECT_ID }}
   REGION: us
   ARTIFACT_REGISTRY_NAME: ${{ secrets.GOOGLE_ARTIFACT_REGISTRY_NAME }}
-  SERVICE_ACCOUNT_KEY: ${{ secrets.SERVICE_ACCOUNT_KEY }}
   DOCKER_BUILD_CONTEXT: "."
   DOCKERFILE_PATH: "Dockerfile.polygon"
 
 jobs:
   build-push-artifact:
     runs-on: ubuntu-latest
+    permissions:
+      contents: 'read'
+      id-token: 'write'
     steps:
+
       - name: "Checkout"
         uses: "actions/checkout@v4"
 
       - id: "auth"
         uses: "google-github-actions/auth@v2"
         with:
-          credentials_json: "${{ env.SERVICE_ACCOUNT_KEY }}"
+          credentials_json: "${{ secrets.SERVICE_ACCOUNT_KEY }}"
 
       - name: 'Set up Cloud SDK'
         uses: 'google-github-actions/setup-gcloud@v2'
