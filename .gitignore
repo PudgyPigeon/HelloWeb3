@@ -1,0 +1,33 @@
+# Ignore generated credentials from google-github-actions/auth
+gha-creds-*.json
+
+# Local .terraform directories
+**/.terraform/*
+
+# .tfstate files
+*.tfstate
+*.tfstate.*
+
+# Crash log files
+crash.log
+
+# Exclude any .tfvars files that are likely to contain sensitive data
+*.tfvars
+
+# Ignore override files as they are usually used to override resources locally and should not be shared
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Ignore plan output files
+*.tfplan
+*tfplan
+
+# Ignore lock files
+*.terraform.lock.hcl
+*.tflock
+
+# Ignore CLI configuration files
+.terraformrc
+terraform.rc

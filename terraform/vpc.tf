@@ -7,9 +7,9 @@ resource "google_compute_network" "gke-vpc-1" {
 resource "google_compute_subnetwork" "primary-subnet-1" {
   name                     = "primary-subnet-1"
   ip_cidr_range            = "10.0.0.0/16"
-  network                  = google_compute_network.gke_vpc_1.self_link
+  network                  = google_compute_network.gke-vpc-1.self_link
   private_ip_google_access = true
-  region                   = "us-central1"
+  region                   = var.region
 
   secondary_ip_range {
     range_name    = "services-ip-range"

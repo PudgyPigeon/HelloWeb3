@@ -8,24 +8,29 @@ provider "kubernetes" {
 
 # Create a GKE cluster
 module "gke" {
-  source              = "terraform-google-modules/kubernetes-engine/google"
-  cluster_name        = var.gke_cluster_name
-  project_id          = var.project_id
-  region              = var.region
-  zones               = var.gke_cluster_zones 
-  network             = google_compute_network.gke_vpc_1.self_link
-  subnetwork          = google_compute_subnetwork.subnet_1.self_link
-  ip_range_pods       = google_compute_subnetwork.subnet_1.secondary_ip_range[0].ip_cidr_range
-  ip_range_services   = google_compute_subnetwork.subnet_1.secondary_ip_range[1].ip_cidr_range
-  enable_basic_auth   = false
-  enable_legacy_abac  = false
-  enable_network_policy = false
+  source                     = "terraform-google-modules/kubernetes-engine/google"
+  name                       = var.gke_cluster_name
+  project_id                 = var.project_id
+  region                     = var.region
+  zones                      = var.gke_cluster_zones 
+  network                    = google_compute_network.gke-vpc-1.name
+  subnetwork                 = google_compute_subnetwork.primary-subnet-1.name
+  ip_range_pods              = google_compute_subnetwork.primary-subnet-1.secondary_ip_range[1].range_name
+  ip_range_services          = google_compute_subnetwork.primary-subnet-1.secondary_ip_range[0].range_name
+  http_load_balancing        = false
+  network_policy             = false
+  horizontal_pod_autoscaling = true
+  filestore_csi_driver       = false
+  dns_cache                  = false
 
-  node_pools = {
-    default = {
-      machine_type = "e2-small"
-      min_count    = 1
-      max_count    = 2
-    }
-  }
+  node_pools = [
+    {
+        name = "default-node-pool",
+        machine_type = "e2-small",
+        min_count    = 1,
+        max_count    = 2,
+        spot         = true,
+
+    },
+  ]
 }
