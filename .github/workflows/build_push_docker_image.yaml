@@ -9,7 +9,6 @@ env:
   PROJECT_ID: ${{ secrets.GOOGLE_PROJECT_ID }}
   REGION: us
   ARTIFACT_REGISTRY_NAME: ${{ secrets.GOOGLE_ARTIFACT_REGISTRY_NAME }}
-  FULL_IMAGE_TAG: ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.ARTIFACT_REGISTRY_NAME }}/
   SERVICE_ACCOUNT_KEY: ${{ secrets.SERVICE_ACCOUNT_KEY }}
   DOCKER_BUILD_CONTEXT: "."
   DOCKERFILE_PATH: "Dockerfile.polygon"
@@ -33,6 +32,9 @@ jobs:
 
       - name: "Use gcloud CLI"
         run: "gcloud info"
+
+      - name: "Set FULL_IMAGE_TAG"
+        run: echo "FULL_IMAGE_TAG=${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.ARTIFACT_REGISTRY_NAME }}/" >> $GITHUB_ENV
 
       - name: "Docker auth"
         run: |-
