@@ -1,6 +1,6 @@
 locals {
-  project_id = "YOUR_PROJECT_ID"
-  region     = "YOUUR_REGION"
+  project_id = var.project_id
+  region     = var.region
   default_labels = {
     managed-by = "terraform"
   }
@@ -16,7 +16,7 @@ terraform {
   }
 
   backend "gcs" {
-    bucket = "YOUR_BUCKET"
+    bucket = var.bucket
   }
 }
 
