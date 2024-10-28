@@ -1,4 +1,4 @@
-# Deplyoment and Access Instructions
+# Deployment and Access Instructions
 
 This repository contains easily reproducable steps to provision
 a GKE cluster along with the necessary Dockerfiles, monitoring, networking,
