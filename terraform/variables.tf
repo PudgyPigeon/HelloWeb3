@@ -41,3 +41,20 @@ variable "polygon_api_key" {
   type        = string
   sensitive   = true
 }
+
+variable "cluster_issuer_email" {
+  description = "The email address for the cluster issuer"
+  type        = string
+}
+
+variable "cluster_issuer_name" {
+  description = "The name of the cluster issuer"
+  type        = string
+  default     = "cert-manager-global"
+}
+
+variable "cluster_issuer_private_key_secret_name" {
+  description = "The name of the secret for the cluster issuer private key"
+  type        = string
+  default     = "cert-manager-private-key"
+}

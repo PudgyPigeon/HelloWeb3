@@ -48,29 +48,81 @@ deployment:
   containerPort: 8080
 
 service:
-  type: LoadBalancer
+  type: ClusterIP #LoadBalancer
   port: 3000
-  targetPort: 8080
+  targetPort: 8080 #http #8080
   annotations:
     prometheus.io/scrape: "true"
     prometheus.io/port: "3000"
     prometheus.io/path: "/metrics"
+    # cloud.google.com/load-balancer-type: "External"
 
 ingress:
-  enabled: false
-  className: ""
-  annotations: {}
-    # kubernetes.io/ingress.class: nginx
+  enabled: true
+  className: "nginx"
+  annotations:
+    cert-manager.io/cluster-issuer: "cert-manager-global"  # ClusterIssuer name
+    kubernetes.io/ingress.class: "nginx"
     # kubernetes.io/tls-acme: "true"
   hosts:
-    - host: chart-example.local
+    - host: "*.app.randomdnsnamerighthere.com"
       paths:
-        - path: /
-          pathType: ImplementationSpecific
-  tls: []
-  #  - secretName: chart-example-tls
-  #    hosts:
-  #      - chart-example.local
+      - pathType: Prefix
+        path: /
+        backend:
+          service:
+            name: helloweb3
+            port:
+              number: 3000
+    - host: app.randomdnsnamerighthere.com
+      paths:
+      - pathType: Prefix
+        path: /
+        backend:
+          service:
+            name: helloweb3
+            port:
+              number: 3000
+  tls: 
+   - secretName: cert-manager-private-key
+     hosts:
+       - app.randomdnsnamerighthere.com
+      
+grafana:
+  serviceName: grafana
+  namespace: monitoring
+  port: 80
+  ingress:
+    name: grafana-ingress
+    enabled: true
+    className: "nginx"
+    annotations:
+      cert-manager.io/cluster-issuer: "cert-manager-global"  # ClusterIssuer name
+      kubernetes.io/ingress.class: "nginx"
+      # kubernetes.io/tls-acme: "true"
+    hosts:
+      - host: "*.grafana.randomdnsnamerighthere.com"
+        paths:
+        - pathType: Prefix
+          path: /
+          backend:
+            service:
+              name: grafana
+              port:
+                number: 80
+      - host: grafana.randomdnsnamerighthere.com
+        paths:
+        - pathType: Prefix
+          path: /
+          backend:
+            service:
+              name: grafana
+              port:
+                number: 80
+    tls: 
+    - secretName: cert-manager-private-key
+      hosts:
+        - grafana.randomdnsnamerighthere.com
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
