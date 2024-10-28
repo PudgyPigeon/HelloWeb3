@@ -28,4 +28,5 @@ resource "helm_release" "kube-prometheus" {
   repository = "https://prometheus-community.github.io/helm-charts"
   version    = "25.24.1"
   chart      = "prometheus"
+
 }
