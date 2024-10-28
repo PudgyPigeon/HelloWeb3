@@ -13,12 +13,12 @@ resource "helm_release" "grafana" {
 
   set {
     name  = "adminUser"
-    value = "admin"
+    value = var.grafana_admin_user
   }
 
   set {
     name  = "adminPassword"
-    value = "admin"
+    value = var.grafana_admin_password
   }
 }
 

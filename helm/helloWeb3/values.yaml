@@ -8,7 +8,7 @@ image:
   repository: us-docker.pkg.dev/helloweb3-439906/helloweb3-docker-repository/polygon # nginx
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "v0.0.1i"
+  tag: "v0.0.1ab"
 
 imagePullSecrets: []
 nameOverride: "helloweb3"
