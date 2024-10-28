@@ -23,3 +23,21 @@ variable "gke_cluster_zones" {
   type        = list(string)
   default = ["us-central1-a", "us-central1-b", "us-central1-c"]
 }
+
+variable "grafana_admin_user" {
+  description = "The admin user for Grafana"
+  type        = string
+  default     = "admin"
+}
+
+variable "grafana_admin_password" {
+  description = "The admin password for Grafana"
+  type        = string
+  default     = "adminPassword"
+}
+
+variable "polygon_api_key" {
+  description = "value of the polygon api key"
+  type        = string
+  sensitive   = true
+}

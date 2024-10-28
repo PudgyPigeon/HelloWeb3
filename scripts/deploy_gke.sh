@@ -4,6 +4,9 @@ export TF_VAR_project_id="helloweb3-439906"
 export TF_VAR_region="us-central1"
 export TF_VAR_bucket="helloweb3-terraform-bucket"
 export TF_VAR_gke_cluster_name="gke-cluster-1"
+export TF_VAR_grafana_admin_user="admin"
+export TF_VAR_grafana_admin_password="adminPassword"
+export TF_VAR_polygon_api_key="S3MT6MK6FARUP1XP49KNWHM68AW66628VK"
 
 cd ./terraform
 
