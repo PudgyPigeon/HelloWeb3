@@ -30,11 +30,12 @@ to set up the baseline scaffolding for the GKE cluster and VPC. It also handles 
 provisioning of Prometheus, Grafana, NGINX Ingress Controller, and various namespace
 and Kubernetes Secrets.
 
-1.) Make sure to install the Google Cloud SDK onto your machine and authenticate via CLI
+- Make sure to install the Google Cloud SDK onto your machine and authenticate via CLI
 to the cloud project you wish to deploy to.
-2.) Download and install Kubectl and Helm.
-3.) Install the Terraform CLI tool.
-2.) To deploy this stack to your Google Cloud Project, please replace the various exported
+
+- Download and install Kubectl and Helm.
+- Install the Terraform CLI tool.
+- To deploy this stack to your Google Cloud Project, please replace the various exported
 variables defined within the script at this location with the values derived from
 the previous step:
 
@@ -51,7 +52,7 @@ export TF_VAR_polygon_api_key="" # Add your Polygon API key here
 export TF_VAR_cluster_issuer_email="" # cluster issuer email
 ```
 
-4.) Run the command `./scripts/deploy_gke.sh`
+- Run the command `./scripts/deploy_gke.sh`
 
 ### Node.js Application
 In order to deploy this Node.js application, the end user must first create a Google
@@ -74,7 +75,7 @@ gcloud container clusters get-credentials CLUSTER_NAME \
     --region=COMPUTE_REGION
 ```
 
-In this examle, replace CLUSTER_NAME with `gke-cluster-1` and COMPUTE_REGION with `us-central1`.
+In this example, replace CLUSTER_NAME with `gke-cluster-1` and COMPUTE_REGION with `us-central1`.
 
 Now you should be able to run Helm and install the Helm charts held within `helm/helloWeb3`.
 
@@ -142,8 +143,8 @@ To access the metrics endpoint `app.randomdnsnamerighthere.com/metrics` should s
 And in order to access Grafana, simply go to `grafana.randomdnsnamerighthere.com`.
 
 In the login page, use the following credentials to login:
-Username: admin
-Password: adminPassword
+- Username: admin
+- Password: adminPassword
 
 Note that these are just defaults and can be changed within the `deploy_gke.sh` script or `variables.tf` file of the Terraform configuration.
 
