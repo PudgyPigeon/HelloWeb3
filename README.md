@@ -153,4 +153,29 @@ use the left-hand sidebar in the Grafana endpoint to view the Kubernetes Overvie
 
 It will show general cluster metrics as well as some visualizations for the HelloWeb3 service.
 
+### Quick Note
+```
+Due to the GKE resources being provisioned with spot instances (for cost savings), and because persistent volumes have not
+been set up for Prom or Grafana, the dashboards and data source linking between the resources may reset from time to time.
+
+Relinking the services is simple. 
+
+Go to the Grafana dashboard and go the `Data Sources` tab in the left hand column. Click to add a new data source.
+
+Highlight Prometheus as your data source and enter the next page.
+
+Under the `Connection` section of this page, enter this string URL `http://kube-prometheus-stackr-server.monitoring.svc.cluster.local`.
+
+Lasty, in the Dashboards section in the left hand column, copy+paste the `dashboard.json` file in the root level of this directory
+to load up the dashboard with some preconfigured metrics visualizations.
+
+To do so, click `Dashboards`.
+
+Then on the right hand side, click `New Dashboard` or `Import`.
+
+It will bring you to a page that allows you to upload and import a dashboard from a file. Click this panel to advance.
+
+Copy and paste the JSON file from this repository `dashboards.json` into the text panel and click load to persist your changes.
+```
+
 If more time were allowed, custom scraper configs for the Prometheus service could be configured.
